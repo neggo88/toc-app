@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // Statische Dateien au
 const apiKey = process.env.SHOPIFY_API_KEY;
 const apiSecret = process.env.SHOPIFY_API_SECRET;
 const scopes = process.env.SCOPES || 'read_products,write_products';
-const appUrl = process.env.APP_URL || 'http://localhost:3000';
+const appUrl = process.env.APP_URL || 'https://34250n80-3000.euw.devtunnels.ms/';
 const redirectUri = `${appUrl}/shopify/callback`;
 const PORT = process.env.PORT || 3000;
 
