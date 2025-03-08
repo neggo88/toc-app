@@ -1,0 +1,22 @@
+{
+    "name": "toc-app",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "cookie": "^1.0.2",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "nonce": "^1.0.4",
+        "promise": "^8.3.0",
+        "querystring": "^0.2.0",
+        "request": "^2.88.2",
+        "shopify-api-node": "^3.14.2",
+        "sqlite3": "^5.1.7"
+    }
+}

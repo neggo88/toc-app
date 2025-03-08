@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToC Settings</title>
+</head>
+<body>
+    <h1>ToC Settings</h1>
+    <form id="settingsForm">
+        <label>
+            ToC Enabled:
+            <input type="checkbox" name="toc_enabled" value="1">
+        </label><br>
+        <label>
+            Blacklist (Blog IDs, comma-separated):
+            <input type="text" name="blacklist" value="">
+        </label><br>
+        <label>
+            ToC Title:
+            <input type="text" name="toc_title" value="Inhaltsverzeichnis">
+        </label><br>
+        <label>
+            Toggle Show:
+            <input type="text" name="toggle_show" value="[anzeigen]">
+        </label><br>
+        <label>
+            Toggle Hide:
+            <input type="text" name="toggle_hide" value="[verbergen]">
+        </label><br>
+        <button type="submit">Save</button>
+    </form>
+    <script>
+        document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const settings = {
+                toc_enabled: formData.get('toc_enabled') ? 1 : 0,
+                blacklist: formData.get('blacklist').split(',').map(id => id.trim()),
+                toc_title: formData.get('toc_title'),
+                toggle_show: formData.get('toggle_show'),
+                toggle_hide: formData.get('toggle_hide')
+            };
+            const response = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            const result = await response.json();
+            alert(result.message);
+        });
+
+        // Lade aktuelle Einstellungen
+        fetch('/api/settings')
+            .then(response => response.json())
+            .then(settings => {
+                document.querySelector('[name="toc_enabled"]').checked = settings.toc_enabled;
+                document.querySelector('[name="blacklist"]').value = JSON.parse(settings.blacklist || '[]').join(', ');
+                document.querySelector('[name="toc_title"]').value = settings.toc_title;
+                document.querySelector('[name="toggle_show"]').value = settings.toggle_show;
+                document.querySelector('[name="toggle_hide"]').value = settings.toggle_hide;
+            });
+    </script>
+</body>
+</html>
